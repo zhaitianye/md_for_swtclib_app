@@ -247,3 +247,140 @@ GET
 | data.transactions[n].amount.currency | String  | 货币种类                     |
 | data.transactions[n].amount.issuer   | String  | 货币                         |
 | data.transactions[n].effects         | Array   | 交易效果                     |
+
+## 获得账号的多重签名列表
+
+#### 类型 
+
+GET 
+
+#### 描述
+
+获得账号的多重签名列表,data.account_objects[n].LedgerEntryType 的值为SignerList为账号下的多签账号的列表。
+具体参数请参照返回值解析
+
+
+#### 请求地址
+```
+{{host}}/account/:account/signerlist
+```
+
+#### 参数说明
+
+#### 参数介绍
+
+| 参数    | 类型   | 解析     |
+|---------|--------|--------|
+| Account | String | 井通账户 |
+
+
+#### 返回值示例
+
+```JSON
+{
+    "success": true,
+    "msg": "成功",
+    "code": 0,
+    "data": {
+        "account": "jwDQAAh3aEH74cSx5kLvxHGf9t248pFqyk",
+        "account_objects": [
+            {
+                "Balance": {
+                    "currency": "TEST",
+                    "issuer": "jjjjjjjjjjjjjjjjjjjjBZbvri",
+                    "value": "101.9986"
+                },
+                "Flags": 1114112,
+                "HighLimit": {
+                    "currency": "TEST",
+                    "issuer": "jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or",
+                    "value": "0"
+                },
+                "HighNode": "000000000000B625",
+                "LedgerEntryType": "SkywellState",
+                "LowLimit": {
+                    "currency": "TEST",
+                    "issuer": "jwDQAAh3aEH74cSx5kLvxHGf9t248pFqyk",
+                    "value": "10000000000"
+                },
+                "LowNode": "0000000000000000",
+                "PreviousTxnID": "B4103931A83C936264A52753C6EB25043004F3D58D00286B72D8B90189F70779",
+                "PreviousTxnLgrSeq": 14908962,
+                "index": "D7930761070C1C023C0AA4D6C524E4EEF59042989E0E3424236530C63205BF0F"
+            },
+            {
+                "Flags": 0,
+                "LedgerEntryType": "SignerList",
+                "OwnerNode": "0000000000000000",
+                "PreviousTxnID": "73A21DC2E4B97031E180B476B85ECBDA411430DD06E4DCE75D112A55166AC5A2",
+                "PreviousTxnLgrSeq": 14880234,
+                "SignerEntries": [
+                    {
+                        "SignerEntry": {
+                            "Account": "jEdMhnqsN228jvqnedtY8QGbmH99Pq63MM",
+                            "SignerWeight": 6
+                        }
+                    },
+                    {
+                        "SignerEntry": {
+                            "Account": "jGg9QzGsMTtPU9DgU4TEMi69LLyrPzfdqf",
+                            "SignerWeight": 5
+                        }
+                    }
+                ],
+                "SignerQuorum": 7,
+                "index": "F41626CCEEFC90C61AE07B716F28D4CB0E37C06A4F4713AFCAF5203DF9CF18C7"
+            },
+            {
+                "Balance": {
+                    "currency": "TFG",
+                    "issuer": "jjjjjjjjjjjjjjjjjjjjBZbvri",
+                    "value": "0.9998"
+                },
+                "Flags": 1114112,
+                "HighLimit": {
+                    "currency": "TFG",
+                    "issuer": "jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or",
+                    "value": "0"
+                },
+                "HighNode": "000000000000B6CA",
+                "LedgerEntryType": "SkywellState",
+                "LowLimit": {
+                    "currency": "TFG",
+                    "issuer": "jwDQAAh3aEH74cSx5kLvxHGf9t248pFqyk",
+                    "value": "10000000000"
+                },
+                "LowNode": "0000000000000000",
+                "PreviousTxnID": "99DDFA6124AA76AADD34F35098EF2B9D293C7C7824F0A38C246CB0467EF5B4D5",
+                "PreviousTxnLgrSeq": 14908330,
+                "index": "91DD5C0C12A045306AFBD490C17376390D6038903A8960E79056EDBD2BD67A5B"
+            }
+        ],
+        "ledger_current_index": 14913831,
+        "validated": false
+    }
+}
+```
+#### 返回值解析
+
+| 参数                                                              | 类型    | 说明                                                                         |
+|-------------------------------------------------------------------|---------|----------------------------------------------------------------------------|
+| success                                                           | Boolean | 此次请求是否成功                                                             |
+| msg                                                               | String  | 返回的信息                                                                   |
+| code                                                              | Integer | 服务器返回的请求状态码                                                       |
+| data                                                              | String  | 数据或者错误信息                                                             |
+| data.account                                                      | String  | 设置签名列表的源账号                                                         |
+| data.account_objects                                              | Array   | 签名列表相关信息                                                             |
+| data.account_objects[n].Flags                                     | Integer | 交易标记                                                                     |
+| data.account_objects[n].LedgerEntryType                           | String  | 账本数据结构类型，SignerList表示签名列表类型,SkywellState为账户的信任关系列表 |
+| data.account_objects[n].OwnerNode                                 | String  | 列表索引标记                                                                 |
+| data.account_objects[n].PreviousTxnID                             | String  | 上一笔交易hash                                                               |
+| data.account_objects[n].PreviousTxnLgrSeq                         | Integer | 上一笔交易所在账本号                                                         |
+| data.account_objects[n].SignerEntries                             | Array   | 签名列表                                                                     |
+| data.account_objects[n].SignerEntries[n].SignerEntry              | Object  | 单个签名对象                                                                 |
+| data.account_objects[n].SignerEntries[n].SignerEntry.Account      | String  | 签名者账号地址                                                               |
+| data.account_objects[n].SignerEntries[n].SignerEntry.SignerWeight | Integer | 该签名者在签名列表中的权重                                                   |
+| data.account_objects[n].SignerEntries[n].SignerEntry.SignerQuorum | Integer | 签名列表阈值                                                                 |
+| data.account_objects[n].index                                     | String  | 列表id                                                                       |
+| data.ledger_current_index                                         | String  | 当前账本号                                                                   |
+| data.validated                                                    | Boolean | 当前账本中，交易是否通过验证                                                  |
