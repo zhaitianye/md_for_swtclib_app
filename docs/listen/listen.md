@@ -8,7 +8,7 @@
 
 ### 使用说明
 
-使用的是标准WS链接，测试地址为 ws://152.136.110.80
+使用的是标准WS链接，测试地址为 ws://{host}
 
 监听如下两个事件：
 - transactions
@@ -16,4 +16,4 @@
 
 ### 示例网址
 
-[点击访问](http://152.136.110.80/socket/swtc-socket-test/1.html)
+{host}/socket/swtc-socket-test/1.html
