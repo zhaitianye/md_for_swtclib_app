@@ -48,7 +48,6 @@ POST
 
 ```JSON
 {	
-	"rsa": "false",
 	"secret": "spAvJzHQZAWAh2SxYDiNrgHpbs6FU",
 	"threshold": 7,
 	"lists":[
@@ -69,8 +68,7 @@ POST
 | 参数             | 类型    | 解析                                                        |
 | ---------------- | ------- | ----------------------------------------------------------- |
 | account          | String  | 井通账户                                                    |
-| secret           | String  | 井通钱包私钥,如果rsa为'true',则使用加密后的私钥             |
-| rsa              | String  | 是否采用RSA加密，加密为'true'，不加密为‘false’ ，默认不加密 |
+| secret           | String  | 井通钱包私钥             |
 | threshold        | Integer | 阈值                                                        |
 | lists            | String  | 签名列表                                                    |
 | lists[n].account | String  | 帐号                                                        |
@@ -166,7 +164,6 @@ POST
 
 ```JSON
 {	
-	"rsa": "false",
 	"secret": "spAvJzHQZAWAh2SxYDiNrgHpbs6FU"
 }
 ```
@@ -176,8 +173,7 @@ POST
 | 参数    | 类型   | 解析                                                        |
 | ------- | ------ | ----------------------------------------------------------- |
 | account | String | 井通账户                                                    |
-| secret  | String | 井通钱包私钥,如果rsa为'true',则使用加密后的私钥             |
-| rsa     | String | 是否采用RSA加密，加密为'true'，不加密为‘false’ ，默认不加密 |
+| secret  | String | 井通钱包私钥             |
 
 #### 返回值示例
 
@@ -250,7 +246,6 @@ POST
 
 ```JSON
 {	
-	"rsa": "false",
 	"lists":[
 		{
 			"account": "jEdMhnqsN228jvqnedtY8QGbmH99Pq63MM",
@@ -269,10 +264,9 @@ POST
 | 参数             | 类型   | 解析                                                        |
 | ---------------- | ------ | ----------------------------------------------------------- |
 | account          | String | 井通账户                                                    |
-| rsa              | String | 是否采用RSA加密，加密为'true'，不加密为‘false’ ，默认不加密 |
 | lists            | Array  | 多签列表的地址列表                                          |
 | lists[n].account | String | 多签列表的井通账户                                          |
-| lists[n].secret  | String | 井通钱包私钥,如果rsa为'true',则使用加密后的私钥             |
+| lists[n].secret  | String | 井通钱包私钥,如果             |
 
 #### 返回值示例
 
@@ -373,7 +367,6 @@ POST
     "currency": "TEST",
     "issuer": "jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or",
     "addMemo": "测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试",
-    "rsa": "false",
     "lists":[
 		{
 			"account": "jEdMhnqsN228jvqnedtY8QGbmH99Pq63MM",
@@ -397,10 +390,9 @@ POST
 | currency         | String  | 货币种类，三到六个字母或 20 字节的自定义货币                |
 | issuer           | String? | 货币发行方，无则留 ''                                       |
 | addMemo          | String? | 备注信息                                                    |
-| rsa              | String? | 是否采用RSA加密，加密为'true'，不加密为‘false’ ，默认不加密 |
 | lists            | Array   | 多签列表的地址列表                                          |
 | lists[n].account | String  | 多签列表的井通账户                                          |
-| lists[n].secret  | String  | 井通钱包私钥,如果rsa为'true',则使用加密后的私钥             |
+| lists[n].secret  | String  | 井通钱包私钥             |
 
 #### 返回值示例
 
@@ -516,7 +508,6 @@ POST
     "currency": "TEST",
     "issuer": "jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or",
     "addMemo": "测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试",
-    "rsa": "false",
     "initiateAccount":"jEdMhnqsN228jvqnedtY8QGbmH99Pq63MM",
     "initiateSecret":"sp1jWPda2HH5MQPvtZAAzG1VEBM5w",
     "listsLength": 2
@@ -533,9 +524,8 @@ POST
 | currency        | String  | 货币种类，三到六个字母或 20 字节的自定义货币                             |
 | issuer          | String? | 货币发行方，无则留 ''                                                    |
 | addMemo         | String? | 备注信息                                                                 |
-| rsa             | String? | 是否采用RSA加密，加密为'true'，不加密为‘false’ ，默认不加密              |
 | initiateAccount | String  | 多签列表内的地址之一，这笔多签交易由此账号发起                           |
-| initiateSecret  | String  | 对应的井通钱包私钥，如果rsa为'true',则使用加密后的私钥                   |
+| initiateSecret  | String  | 对应的井通钱包私钥                   |
 | listsLength     | Integer | 准备签署的账号数量，几个账号准备签名这里就填写几，在签名中计算手续费使用 |
 
 #### 返回值示例
@@ -615,7 +605,6 @@ POST
 
 ```JSON
 {
-    "rsa": "false",
     "joinAccount": "jGg9QzGsMTtPU9DgU4TEMi69LLyrPzfdqf",
     "joinSecret": "sh7EcLXYX9YwvqWkPk3C2fPoWtXhA",
     "tx_json": {
@@ -655,9 +644,8 @@ POST
 
 | 参数            | 类型    | 解析                                                                     |
 | --------------- | ------- | ------------------------------------------------------------------------ |
-| rsa             | String? | 是否采用RSA加密，加密为'true'，不加密为‘false’ ，默认不加密              |
 | joinAccount | String  | 多签列表内的地址之一，需要加入签名的账号                           |
-| joinSecret  | String  | 对应的井通钱包私钥，如果rsa为'true',则使用加密后的私钥                   |
+| joinSecret  | String  | 对应的井通钱包私钥                   |
 | tx_json     | Object | 上一步服务器返回的tx_json的原样copy，tx_json的值不能修改，否则交易不能成功 |
 
 #### 返回值示例

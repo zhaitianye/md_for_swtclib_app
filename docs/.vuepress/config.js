@@ -13,11 +13,10 @@ module.exports = {
       ['/ledgers/ledgers.md', '账本相关'],
       ['/tx/tx.md', '事务相关'],
       ['/sign/sign.md', '签名相关'],
-      ['/rsa/rsa.md', '安全相关'],
       ['/multisign/multisign.md', '多签相关'],
-      ['/listen/listen.md', '监听事件'],
+      ['/security/security.md', '安全相关'],
       ['/appendix/appendix.md', '附录'],
       ['/update/update.md', '更新说明']
-    ]
+    ],
   }
 }

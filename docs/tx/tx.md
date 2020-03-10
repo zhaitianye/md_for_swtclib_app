@@ -1,4 +1,4 @@
-## 查询某一交易具体信息
+## 根据HASH查询事务
 
 ### 类型 
 
@@ -6,7 +6,7 @@ GET
 
 ### 描述
 
-查询某一交易具体信息
+根据HASH查询事务
 
 
 ### 请求地址
@@ -133,16 +133,15 @@ POST
 
 #### 参数介绍
 
-| 参数     | 类型    | 说明                                                        |
-|----------|---------|-----------------------------------------------------------|
-| account  | String  | 发起账号                                                    |
-| to       | String  | 目标账号                                                    |
-| value    | String  | 支付数量                                                    |
-| currency | String  | 货币种类，三到六个字母或 20 字节的自定义货币                 |
-| issuer   | String  | 货币发行方，无则留 ''                                        |
-| secret   | String  | 井通钱包私钥,如果rsa为'true',则使用加密后的私钥             |
-| rsa      | String? | 是否采用RSA加密，加密为'true'，不加密为‘false’ ，默认不加密 |
-| addMemo  | String? | 备注信息                                                    |
+| 参数     | 类型    | 说明                                            |
+|----------|---------|-----------------------------------------------|
+| account  | String  | 发起账号                                        |
+| to       | String  | 目标账号                                        |
+| value    | String  | 支付数量                                        |
+| currency | String  | 货币种类，三到六个字母或 20 字节的自定义货币     |
+| issuer   | String  | 货币发行方，无则留 ''                            |
+| secret   | String  | 井通钱包私钥 |
+| addMemo  | String? | 备注信息                                        |
 
 
 #### 参数示例
@@ -219,7 +218,7 @@ POST
 | data.tx_json.hash            | String  | 交易 hash              |
 
 
-## 批量支付
+## 一对多批量支付
 
 ### 类型 
 
@@ -227,7 +226,7 @@ POST
 
 ### 描述
 
-批量支付是一个账号在短时间内向多个账号发起交易。因为服务器 sequence 控制比较复杂，所以才有这个接口，系统自动管理sequence。
+一对多批量支付是一个账号在短时间内向多个账号发起交易。因为服务器 sequence 控制比较复杂，所以才有这个接口，系统自动管理sequence。
 
 适用场景：
   1. 新注册用户发放奖励，平台配置一个发放币的账号采用此接口批量转账
@@ -245,17 +244,16 @@ POST
 
 #### 参数介绍
 
-| 参数           | 类型    | 说明                                                        |
-|----------------|---------|-----------------------------------------------------------|
-| account        | String  | 发起账号                                                    |
-| secret         | String  | 井通钱包私钥,如果rsa为'true',则使用加密后的私钥             |
-| rsa            | String? | 是否采用RSA加密，加密为'true'，不加密为‘false’ ，默认不加密 |
-| tx             | Array   | 需要交易的地址对                                            |
-| tx[n].to       | String  | 目标账号                                                    |
-| tx[n].value    | String  | 支付数量                                                    |
-| tx[n].currency | String  | 货币种类，三到六个字母或 20 字节的自定义货币                 |
-| tx[n].issuer   | String  | 货币发行方，无则留 ''                                        |
-| tx[n].addMemo  | String? | 备注信息                                                    |
+| 参数           | 类型    | 说明                                            |
+|----------------|---------|-----------------------------------------------|
+| account        | String  | 发起账号                                        |
+| secret         | String  | 井通钱包私钥 |
+| tx             | Array   | 需要交易的地址对                                |
+| tx[n].to       | String  | 目标账号                                        |
+| tx[n].value    | String  | 支付数量                                        |
+| tx[n].currency | String  | 货币种类，三到六个字母或 20 字节的自定义货币     |
+| tx[n].issuer   | String  | 货币发行方，无则留 ''                            |
+| tx[n].addMemo  | String? | 备注信息                                        |
 
 #### 参数示例
 
@@ -263,7 +261,6 @@ POST
 {
   "account":"jJCtKD2MbfYoVdQEbjTmbXmNiVkLBTknLC",
   "secret":"snXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  "rsa":"false",
   "tx":[
     {
       "to":"jpUCa7JwSbwvU1adNXRN7BWzTeVsTiNp1i",
@@ -356,7 +353,7 @@ POST
 | data[n].data.Sequence              | Integer | 单子序列号                             |
 | data[n].data.hash                  | String  | 交易 hash                              |
 
-## 签名支付
+## 多对多批量支付
 
 ### 类型 
 
@@ -364,7 +361,190 @@ POST
 
 ### 描述
 
-签名支付
+多对多批量支付是对一对多批量支付的拓展,目的是合并多笔交易进行直接支付。每一笔交易的发起方可以不一致，currency可以不一致，收到人可以不一致。本接口内部自动管理sequence。
+
+如两次调用这个接口，并有相同的发起方的账号，调用此接口的间隔周期至少为1个区块的同步时间。
+
+适用场景：
+  1. 后台定时任务跑批量转账
+  2. 批量进行多对多的资产分发
+  3. 其他业务场景
+  4. ...
+
+### 请求地址
+```
+{{host}}/tx/bulk
+```
+
+### 参数说明
+
+#### 参数介绍
+
+| 参数           | 类型    | 说明                                        |
+|----------------|---------|-------------------------------------------|
+| tx             | Array   | 需要交易的地址对                            |
+| tx[n].account  | String  | 发起账号                                    |
+| tx[n].secret   | String  | 井通钱包私钥                                |
+| tx[n].to       | String  | 目标账号                                    |
+| tx[n].value    | String  | 支付数量                                    |
+| tx[n].currency | String  | 货币种类，三到六个字母或 20 字节的自定义货币 |
+| tx[n].issuer   | String  | 货币发行方，无则留 ''                        |
+| tx[n].addMemo  | String? | 备注信息                                    |
+
+#### 参数示例
+
+```JSON
+{
+  "tx": [
+    {
+      "account": "jJCtKD2MbfYoVdQEbjTmbXmNiVkLBTknLC",
+      "secret": "xxx",
+      "to": "jpUCa7JwSbwvU1adNXRN7BWzTeVsTiNp1i",
+      "value": "0.001",
+      "currency": "SWT",
+      "issuer": "jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or",
+      "addMemo": "测试1测试1试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1测试1"
+    },
+    {
+      "account": "j9wtvMqV3jYpjHcHS94yXW8XGNB7YHC8w8",
+      "secret": "xx",
+      "to": "jpUCa7JwSbwvU1adNXRN7BWzTeVsTiNp1i",
+      "value": "0.001",
+      "currency": "TEST",
+      "issuer": "jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or",
+      "addMemo": "测试2"
+    },
+    {
+      "account": "jEvHZADzabUocY7sPmfXThyYc8Qtq3bjtq",
+      "secret": "xxx",
+      "to": "jpUCa7JwSbwvU1adNXRN7BWzTeVsTiNp1i",
+      "value": "0.001",
+      "currency": "SWT",
+      "issuer": "jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or",
+      "addMemo": "测试3"
+    },
+    {
+      "account": "jJCtKD2MbfYoVdQEbjTmbXmNiVkLBTknLC",
+      "secret": "xxx",
+      "to": "jpUCa7JwSbwvU1adNXRN7BWzTeVsTiNp1i",
+      "value": "0.001",
+      "currency": "TEST",
+      "issuer": "jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or",
+      "addMemo": "测试4"
+    },
+    {
+      "account": "jJCtKD2MbfYoVdQEbjTmbXmNiVkLBTknLC",
+      "secret": "xxx",
+      "to": "jpUCa7JwSbwvU1adNXRN7BWzTeVsTiNp1i",
+      "value": "0.001",
+      "currency": "TEST",
+      "issuer": "jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or",
+      "addMemo": "测试5"
+    }
+  ]
+}
+```
+
+### 返回值示例
+
+```JSON
+{
+    "success": true,
+    "msg": "请求成功",
+    "code": 0,
+    "data": [
+        {
+            "success": true,
+            "msg": "连接成功,交易结果为tesSUCCESS",
+            "index": "0",
+            "data": {
+                "engine_result": "tesSUCCESS",
+                "engine_result_code": 0,
+                "engine_result_message": "The transaction was applied. Only final in a validated ledger.",
+                "sequence": 10825,
+                "hash": "1B99D10553EE535A63DF84F26AD856E37F663BF7BE8C5707888B3C6CEC0F9288"
+            }
+        },
+        {
+            "success": true,
+            "msg": "连接成功,交易结果为tesSUCCESS",
+            "index": "1",
+            "data": {
+                "engine_result": "tesSUCCESS",
+                "engine_result_code": 0,
+                "engine_result_message": "The transaction was applied. Only final in a validated ledger.",
+                "sequence": 3181,
+                "hash": "33D7F5BB53ED83DFA1B1AADA3E014483165C33BD32DF3EC1E1044275F9CB855D"
+            }
+        },
+        {
+            "success": true,
+            "msg": "连接成功,交易结果为tesSUCCESS",
+            "index": "2",
+            "data": {
+                "engine_result": "tesSUCCESS",
+                "engine_result_code": 0,
+                "engine_result_message": "The transaction was applied. Only final in a validated ledger.",
+                "sequence": 3017,
+                "hash": "059F3C9DC5379ABD98FEEBB1A9DBD269D163799A95B8B1B8C3C7A807595C2A24"
+            }
+        },
+        {
+            "success": true,
+            "msg": "连接成功,交易结果为tesSUCCESS",
+            "index": "3",
+            "data": {
+                "engine_result": "tesSUCCESS",
+                "engine_result_code": 0,
+                "engine_result_message": "The transaction was applied. Only final in a validated ledger.",
+                "sequence": 10826,
+                "hash": "30F98564B3B33BD299C442D505B10DFCDB89C521E4C52B0DBC9C277F92B76CAE"
+            }
+        },
+        {
+            "success": true,
+            "msg": "连接成功,交易结果为tesSUCCESS",
+            "index": "4",
+            "data": {
+                "engine_result": "tesSUCCESS",
+                "engine_result_code": 0,
+                "engine_result_message": "The transaction was applied. Only final in a validated ledger.",
+                "sequence": 10827,
+                "hash": "F03ED70EF3F32D463599EAF79069A4BBF4E5E150D38A7D954D27AAEF0AEA01B7"
+            }
+        }
+    ]
+}
+```
+
+### 返回值解析
+
+| 参数                               | 类型    | 说明                                   |
+|------------------------------------|---------|--------------------------------------|
+| success                            | Boolean | 此次请求是否成功                       |
+| msg                                | String  | 返回的信息                             |
+| code                               | Integer | 服务器返回的请求状态码                 |
+| data                               | Array   | 每一笔交易返回的数据                   |
+| data[n].success                    | String  | 这一笔交易在提交到公共节点上是否有错误 |
+| data[n].msg                        | String  | 这一笔交易在提交到公共节点上的提示信息 |
+| data[n].index                      | String  | 每一笔在整个交易数组中的底标           |
+| data[n].data                       | Array   | SWTC-LIB 返回的精简数据                |
+| data[n].data.engine_result         | String  | 请求结果，根据是否为tesSUCCESS判断成功  |
+| data[n].data.engine_result_code    | Integer | 请求结果编码                           |
+| data[n].data.engine_result_message | String  | 请求结果 message 信息                  |
+| data[n].data.Sequence              | Integer | 单子序列号                             |
+| data[n].data.hash                  | String  | 交易 hash                              |
+
+
+## 提交单个签名
+
+### 类型 
+
+POST 
+
+### 描述
+
+提交单个签名
 
 
 ### 请求地址
@@ -376,9 +556,9 @@ POST
 
 #### 参数介绍
 
-| 参数 | 类型   | 说明         |
-|------|--------|------------|
-| blob | String | 签名后的blob |
+| 参数 | 类型   | 说明             |
+|------|--------|----------------|
+| blob | String | 签名后的单个blob |
 
 #### 参数示例
 
@@ -452,7 +632,7 @@ POST
 | data.tx_json.TxnSignature    | String  | 交易签名               |
 | data.tx_json.hash            | String  | 交易 hash              |
 
-## 批量签名支付
+## 提交多个签名
 
 ### 类型 
 
@@ -460,7 +640,7 @@ POST
 
 ### 描述
 
-批量签名支付
+提交多个签名
 
 
 ### 请求地址
@@ -470,7 +650,7 @@ POST
 
 ### 参数说明
 
-此接口内部的blob是按照（6.2）批量签名返回的顺序进行提交，blob内部带有sequence的序列，请组装的时候也必须按照顺序进行组装使用
+签名内部带有sequence的序列，请组装的时候也必须按照顺序进行组装使用。
 
 #### 参数介绍
 

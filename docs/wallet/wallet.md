@@ -57,15 +57,13 @@ POST
 
 | 参数   | 类型    | 说明                                                        |
 |--------|---------|-----------------------------------------------------------|
-| secret | String  | 井通钱包私钥,如果rsa为'true',则使用加密后的私钥             |
-| rsa    | String? | 是否采用RSA加密，加密为'true'，不加密为‘false’ ，默认不加密 |
+| secret | String  | 井通钱包私钥             |
 
 #### 参数示例
 
 ```JSON
 {
-  "secret":"snXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  "rsa":"false",
+  "secret":"snXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 }
 ```
 
