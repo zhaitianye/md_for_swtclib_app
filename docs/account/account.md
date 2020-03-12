@@ -18,9 +18,9 @@ GET
 
 #### 参数介绍
 
-| 参数    | 类型   | 说明         |
-|---------|--------|------------|
-| account | String | 井通钱包地址 |
+| 参数    | 位置 | 类型   | 说明         |
+|---------|------|--------|------------|
+| account | Path | String | 井通钱包地址 |
 
 #### 返回值示例
 
@@ -92,11 +92,11 @@ GET
 
 #### 参数介绍
 
-| 参数     | 类型    | 说明             |
-|----------|---------|----------------|
-| account  | String  | 井通钱包地址     |
-| currency | String? | 特定的币种       |
-| issuer   | String? | 特定币种的发行商 |
+| 参数     | 位置  | 类型    | 说明             |
+|----------|-------|---------|----------------|
+| account  | Path  | String  | 井通钱包地址     |
+| currency | Query | String? | 特定的币种       |
+| issuer   | Query | String? | 特定币种的发行商 |
 
 
 #### 返回值示例
@@ -145,9 +145,9 @@ GET
 | data.balances[n].currency | String  | 币种                   |
 | data.balances[n].issuer   | String  | 发行商                 |
 | data.balances[n].freezed  | String  | 冻结数，小数点后六位    |
-| data.sequence             | Integer  | 账户当前可用的sequence |
+| data.sequence             | Integer | 账户当前可用的sequence |
 
-## 获得账号交易列表
+## 请求账户可发送/接收的通证
 
 #### 类型 
 
@@ -155,7 +155,178 @@ GET
 
 #### 描述
 
-获得账号交易列表
+请求账户可发送/接收的通证
+
+
+#### 请求地址
+```
+{{host}}/account/:account/tums
+```
+
+#### 参数说明
+
+#### 参数介绍
+
+| 参数    | 位置 | 类型   | 说明         |
+|---------|------|--------|------------|
+| account | Path | String | 井通钱包地址 |
+
+
+#### 返回值示例
+
+```JSON
+{
+    "success": true,
+    "msg": "成功",
+    "code": 0,
+    "data": {
+        "ledger_hash": "9307F13346B148FC57A7DF2FFABD028A3AE93CE53D527655535EB404A1124C19",
+        "ledger_index": 15405033,
+        "receive_currencies": [
+            "CSP",
+            "GSL",
+            "HJT",
+            "KVC",
+            "TFG",
+            "JBIZ",
+            "TEST",
+            "JSLASH"
+        ],
+        "send_currencies": [
+            "CSP",
+            "GSL",
+            "HJT",
+            "KVC",
+            "TFG",
+            "JBIZ",
+            "TEST",
+            "JSLASH"
+        ],
+        "validated": true
+    }
+}
+```
+#### 返回值解析
+
+| 参数                       | 类型    | 说明                   |
+|----------------------------|---------|----------------------|
+| success                    | Boolean | 此次请求是否成功       |
+| msg                        | String  | 返回的信息             |
+| code                       | Integer | 服务器返回的请求状态码 |
+| data                       | Object  | SWTC-LIB 返回的数据    |
+| data.ledger_hash           | String  | 账本hash               |
+| data.ledger_index          | String  | 账本高度               |
+| data.receive_currencies    | Array   | 可接收的通证列表       |
+| data.receive_currencies[n] | String  | 具体可接收的通证       |
+| data.send_currencies       | Array   | 可发送的货币列表       |
+| data.send_currencies[n]    | String  | 具体可发送的通证       |
+| data.validated             | Boolean | 交易是否通过验证       |
+
+## 获得账号关系
+
+#### 类型 
+
+GET 
+
+#### 描述
+
+获得账号关系
+
+
+#### 请求地址
+```
+{{host}}/account/:account/relations/:type
+```
+
+#### 参数说明
+
+#### 参数介绍
+
+| 参数    | 位置 | 类型   | 说明                                                           |
+|---------|------|--------|--------------------------------------------------------------|
+| account | Path | String | 井通钱包地址                                                   |
+| type    | Path | String | 关系类型，固定的三个值：信任(trust)、授权(authorize)、冻结(freeze) |
+
+
+#### 返回值示例
+
+```JSON
+{
+    "success": true,
+    "msg": "成功",
+    "code": 0,
+    "data": {
+        "account": "jJCtKD2MbfYoVdQEbjTmbXmNiVkLBTknLC",
+        "ledger_hash": "B02179D7D1F4F814F30C75D49D1288360479FBAA6AFBCD17F6B74D7BF559E68F",
+        "ledger_index": 15405240,
+        "lines": [
+            {
+                "account": "jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or",
+                "balance": "96",
+                "currency": "TFG",
+                "limit": "10000000000",
+                "limit_peer": "0",
+                "no_skywell": true,
+                "quality_in": 0,
+                "quality_out": 0
+            },
+            {
+                "account": "jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or",
+                "balance": "10.99",
+                "currency": "JSLASH",
+                "limit": "10000000000",
+                "limit_peer": "0",
+                "no_skywell": true,
+                "quality_in": 0,
+                "quality_out": 0
+            },
+            {
+                "account": "jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or",
+                "balance": "8.9998",
+                "currency": "HJT",
+                "limit": "10000000000",
+                "limit_peer": "0",
+                "no_skywell": true,
+                "quality_in": 0,
+                "quality_out": 0
+            }
+        ],
+        "validated": true
+    }
+}
+```
+#### 返回值解析
+
+| 参数                      | 类型    | 说明                     |
+|---------------------------|---------|------------------------|
+| success                   | Boolean | 此次请求是否成功         |
+| msg                       | String  | 返回的信息               |
+| code                      | Integer | 服务器返回的请求状态码   |
+| data                      | Object  | SWTC-LIB 返回的数据      |
+| data.account              | String  | 井通账户                 |
+| data.ledger_hash          | String  | 账本hash                 |
+| data.ledger_index         | String  | 账本高度                 |
+| data.lines                | Array   | 该账户的信任线           |
+| data.lines[n].account     | String  | 信任的银关               |
+| data.lines[n].balance     | String  | 余额                     |
+| data.lines[n].currency    | String  | 货币种类                 |
+| data.lines[n].limit       | String  | 信任额度                 |
+| data.lines[n].limit_peer  | String  | 对方设置的信任额度，默认0 |
+| data.lines[n].no_skywell  | Boolean | 默认为true               |
+| data.lines[n].quality_in  | Integer | 兑换比例，默认0，暂时未用  |
+| data.lines[n].quality_out | Integer | 兑换比例，默认0，暂时未用  |
+| data.validated            | Boolean | 交易是否通过验证         |
+
+
+## 获得账号交易事务列表
+
+#### 类型 
+
+GET 
+
+#### 描述
+
+获得账号交易事务列表
 
 
 #### 请求地址
@@ -167,13 +338,13 @@ GET
 
 #### 参数介绍
 
-| 参数          | 类型    | 说明                                                       |
-|---------------|---------|----------------------------------------------------------|
-| account       | String  | 井通钱包地址                                               |
-| limit         | String? | 查询多少条(默认20,最大值200)                               |
-| forward       | String? | 按交易时间排序，固定的两个值：asc(升序)、desc(降序)(默认desc) |
-| marker_ledger | String? | 上一个查询的marker.ledger这里起到分页的作用                |
-| marker_seq    | String? | 上一个查询的marker.seq这里起到分页的作用                   |
+| 参数          | 位置  | 类型    | 说明                                                       |
+|---------------|-------|---------|----------------------------------------------------------|
+| account       | Path  | String  | 井通钱包地址                                               |
+| limit         | Query | String? | 查询多少条(默认20,最大值200)                               |
+| forward       | Query | String? | 按交易时间排序，固定的两个值：asc(升序)、desc(降序)(默认desc) |
+| marker_ledger | Query | String? | 上一个查询的marker.ledger这里起到分页的作用                |
+| marker_seq    | Query | String? | 上一个查询的marker.seq这里起到分页的作用                   |
 
 
 #### 返回值示例
@@ -248,6 +419,149 @@ GET
 | data.transactions[n].amount.issuer   | String  | 货币                         |
 | data.transactions[n].effects         | Array   | 交易效果                     |
 
+## 查询账户挂单列表
+
+#### 类型 
+
+GET 
+
+#### 描述
+
+查询账户挂单列表
+
+
+#### 请求地址
+```
+{{host}}/account/:account/orders
+```
+
+#### 参数说明
+
+#### 参数介绍
+
+| 参数    | 位置  | 类型    | 说明                                                           |
+|---------|-------|---------|--------------------------------------------------------------|
+| account | Path  | String  | 井通钱包地址                                                   |
+| ledger  | Query | String? | 账本，可选值为validated, closed, current, 指定账本号：(14530000) |
+| limit   | Query | String? | 限制返回的条数，最小值为10，最大值为200                          |
+| marker  | Query | String? | 标记点，从此标记点开始查询，一串hash                             |
+
+
+#### 返回值示例
+
+```JSON
+{
+    "success": true,
+    "msg": "成功",
+    "code": 0,
+    "data": {
+        "account": "j4cAYiFDT1t7chSDK91EuSA1qR5t74WyrX",
+        "ledger_hash": "D971E5F750BD431379915B1C77B7959E41D0E20D3B867A9D9F6EF44D3260D2C7",
+        "ledger_index": 15406643,
+        "limit": 10,
+        "marker": "01E3A92A0228174DF3741A73864FECB61B3007307BA98C233F20914A36DD8A8D",
+        "offers": [
+            {
+                "FeeCurrency": "CNY",
+                "OfferFeeRateDen": "1000",
+                "OfferFeeRateNum": "2",
+                "Platform": "jDXCeSHSpZ9LiX6ihckWaYDeDt5hFrdTto",
+                "flags": 131072,
+                "seq": 15744,
+                "taker_gets": {
+                    "currency": "CSP",
+                    "issuer": "jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or",
+                    "value": "54573"
+                },
+                "taker_pays": {
+                    "currency": "CNY",
+                    "issuer": "jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or",
+                    "value": "1146.033"
+                }
+            },
+            {
+                "Platform": "jDXCeSHSpZ9LiX6ihckWaYDeDt5hFrdTto",
+                "flags": 0,
+                "seq": 17161,
+                "taker_gets": {
+                    "currency": "CNY",
+                    "issuer": "jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or",
+                    "value": "191.784"
+                },
+                "taker_pays": {
+                    "currency": "CSP",
+                    "issuer": "jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or",
+                    "value": "15720"
+                }
+            },
+            {
+                "FeeCurrency": "CNY",
+                "OfferFeeRateDen": "1000",
+                "OfferFeeRateNum": "2",
+                "Platform": "jDXCeSHSpZ9LiX6ihckWaYDeDt5hFrdTto",
+                "flags": 131072,
+                "seq": 8155,
+                "taker_gets": {
+                    "currency": "CSP",
+                    "issuer": "jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or",
+                    "value": "27570"
+                },
+                "taker_pays": {
+                    "currency": "CNY",
+                    "issuer": "jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or",
+                    "value": "884.997"
+                }
+            },
+            {
+                "FeeCurrency": "CNY",
+                "OfferFeeRateDen": "1000",
+                "OfferFeeRateNum": "2",
+                "Platform": "jDXCeSHSpZ9LiX6ihckWaYDeDt5hFrdTto",
+                "flags": 131072,
+                "seq": 8913,
+                "taker_gets": {
+                    "currency": "CSP",
+                    "issuer": "jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or",
+                    "value": "16151"
+                },
+                "taker_pays": {
+                    "currency": "CNY",
+                    "issuer": "jGa9J9TkqtBcUoHe2zqhVFFbgUVED6o9or",
+                    "value": "465.1488"
+                }
+            }
+            ......
+        ],
+        "validated": true
+    }
+}
+```
+#### 返回值解析
+
+| 参数                               | 类型     | 说明                            |
+|------------------------------------|----------|-------------------------------|
+| success                            | Boolean  | 此次请求是否成功                |
+| msg                                | String   | 返回的信息                      |
+| code                               | Integer  | 服务器返回的请求状态码          |
+| data                               | Object   | SWTC-LIB 返回的数据             |
+| data.account                       | String   | 钱包地址                        |
+| data.ledger_hash                   | String   | 账本hash                        |
+| data.ledger_index                  | String   | 账本高度                        |
+| data.limit                         | Integer? | 返回当前查询的条数              |
+| data.marker                        | String?  | 当前的标记点                    |
+| data.offers                        | Array    | 该账户的挂单列表                |
+| data.offers[n].flags               | Integer  | 买卖类型(131072表示卖，否则是买) |
+| data.offers[n].seq                 | Integer  | 余额                            |
+| data.offers[n].taker_gets          | String   | 货币种类                        |
+| data.offers[n].taker_gets.value    | String   | 金额                            |
+| data.offers[n].taker_gets.currency | String   | 货币种类                        |
+| data.offers[n].taker_gets.issuer   | String   | 货币发行商                      |
+| data.offers[n].taket_pays          | String   | 信任额度                        |
+| data.offers[n].taker_gets.value    | String   | 金额                            |
+| data.offers[n].taker_gets.currency | String   | 货币种类                        |
+| data.offers[n].taker_gets.issuer   | String   | 货币发行商                      |
+| data.validated                     | Boolean  | 交易是否通过验证                |
+
 ## 获得账号的多重签名列表
 
 #### 类型 
@@ -269,9 +583,9 @@ GET
 
 #### 参数介绍
 
-| 参数    | 类型   | 解析     |
-|---------|--------|--------|
-| Account | String | 井通账户 |
+| 参数    | 位置 | 类型   | 说明     |
+|---------|------|--------|--------|
+| account | Path | String | 井通账户 |
 
 
 #### 返回值示例
@@ -384,3 +698,24 @@ GET
 | data.account_objects[n].index                                     | String  | 列表id                                                                       |
 | data.ledger_current_index                                         | String  | 当前账本号                                                                   |
 | data.validated                                                    | Boolean | 当前账本中，交易是否通过验证                                                  |
+
+
+## 说明
+
+### 和 swtc-proxy 对比暂不提供的接口
+
+#### 描述 
+
+swtclib-app 和 swtc-proxy 进行了对比。 swtc-proxy 多提供了以下接口。
+这些接口经过分析，包含的数据可以从其他接口获取计算得到。 所以暂不提供
+
+#### 不提供接口列表 
+1. /accounts/:account/payments 查询账户支付记录 (用下述1来代替)
+2. /accounts/:account/payments/:hash 查询账户某个支付 (用下述2来代替)
+3. /accounts/:account/transactions/:hash 查询账户某个事务 (用下述2来代替)
+4. /accounts/:account/orders/:hash 查询账户某个挂单 (用下述2来代替)
+
+#### 可以替代的已提供接口列表
+
+1. /account/:account/tx 获得账号交易事务列表
+1. /tx/:hash 根据HASH查询事务

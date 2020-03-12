@@ -18,9 +18,9 @@ GET
 
 #### 参数介绍
 
-| 参数 | 类型   | 说明      |
-|------|--------|---------|
-| hash | String | 交易 hash |
+| 参数 | 位置 | 类型   | 说明      |
+|------|------|--------|---------|
+| hash | Path | String | 交易 hash |
 
 ### 返回值示例
 
@@ -133,15 +133,15 @@ POST
 
 #### 参数介绍
 
-| 参数     | 类型    | 说明                                            |
-|----------|---------|-----------------------------------------------|
-| account  | String  | 发起账号                                        |
-| to       | String  | 目标账号                                        |
-| value    | String  | 支付数量                                        |
-| currency | String  | 货币种类，三到六个字母或 20 字节的自定义货币     |
-| issuer   | String  | 货币发行方，无则留 ''                            |
-| secret   | String  | 井通钱包私钥 |
-| addMemo  | String? | 备注信息                                        |
+| 参数     | 位置 | 类型    | 说明                                        |
+|----------|------|---------|-------------------------------------------|
+| account  | Body | String  | 发起账号                                    |
+| to       | Body | String  | 目标账号                                    |
+| value    | Body | String  | 支付数量                                    |
+| currency | Body | String  | 货币种类，三到六个字母或 20 字节的自定义货币 |
+| issuer   | Body | String  | 货币发行方，无则留 ''                        |
+| secret   | Body | String  | 井通钱包私钥                                |
+| addMemo  | Body | String? | 备注信息                                    |
 
 
 #### 参数示例
@@ -244,16 +244,16 @@ POST
 
 #### 参数介绍
 
-| 参数           | 类型    | 说明                                            |
-|----------------|---------|-----------------------------------------------|
-| account        | String  | 发起账号                                        |
-| secret         | String  | 井通钱包私钥 |
-| tx             | Array   | 需要交易的地址对                                |
-| tx[n].to       | String  | 目标账号                                        |
-| tx[n].value    | String  | 支付数量                                        |
-| tx[n].currency | String  | 货币种类，三到六个字母或 20 字节的自定义货币     |
-| tx[n].issuer   | String  | 货币发行方，无则留 ''                            |
-| tx[n].addMemo  | String? | 备注信息                                        |
+| 参数           | 位置 | 类型    | 说明                                        |
+|----------------|------|---------|-------------------------------------------|
+| account        | Body | String  | 发起账号                                    |
+| secret         | Body | String  | 井通钱包私钥                                |
+| tx             | Body | Array   | 需要交易的地址对                            |
+| tx[n].to       | Body | String  | 目标账号                                    |
+| tx[n].value    | Body | String  | 支付数量                                    |
+| tx[n].currency | Body | String  | 货币种类，三到六个字母或 20 字节的自定义货币 |
+| tx[n].issuer   | Body | String  | 货币发行方，无则留 ''                        |
+| tx[n].addMemo  | Body | String? | 备注信息                                    |
 
 #### 参数示例
 
@@ -380,16 +380,16 @@ POST
 
 #### 参数介绍
 
-| 参数           | 类型    | 说明                                        |
-|----------------|---------|-------------------------------------------|
-| tx             | Array   | 需要交易的地址对                            |
-| tx[n].account  | String  | 发起账号                                    |
-| tx[n].secret   | String  | 井通钱包私钥                                |
-| tx[n].to       | String  | 目标账号                                    |
-| tx[n].value    | String  | 支付数量                                    |
-| tx[n].currency | String  | 货币种类，三到六个字母或 20 字节的自定义货币 |
-| tx[n].issuer   | String  | 货币发行方，无则留 ''                        |
-| tx[n].addMemo  | String? | 备注信息                                    |
+| 参数           | 位置 | 类型    | 说明                                        |
+|----------------|------|---------|-------------------------------------------|
+| tx             | Body | Array   | 需要交易的地址对                            |
+| tx[n].account  | Body | String  | 发起账号                                    |
+| tx[n].secret   | Body | String  | 井通钱包私钥                                |
+| tx[n].to       | Body | String  | 目标账号                                    |
+| tx[n].value    | Body | String  | 支付数量                                    |
+| tx[n].currency | Body | String  | 货币种类，三到六个字母或 20 字节的自定义货币 |
+| tx[n].issuer   | Body | String  | 货币发行方，无则留 ''                        |
+| tx[n].addMemo  | Body | String? | 备注信息                                    |
 
 #### 参数示例
 
@@ -536,7 +536,7 @@ POST
 | data[n].data.hash                  | String  | 交易 hash                              |
 
 
-## 提交单个签名
+## 单个提交签名事务
 
 ### 类型 
 
@@ -544,7 +544,7 @@ POST
 
 ### 描述
 
-提交单个签名
+单个提交签名事务
 
 
 ### 请求地址
@@ -556,9 +556,9 @@ POST
 
 #### 参数介绍
 
-| 参数 | 类型   | 说明             |
-|------|--------|----------------|
-| blob | String | 签名后的单个blob |
+| 参数 | 位置 | 类型   | 说明             |
+|------|------|--------|----------------|
+| blob | Body | String | 签名后的单个blob |
 
 #### 参数示例
 
@@ -632,7 +632,7 @@ POST
 | data.tx_json.TxnSignature    | String  | 交易签名               |
 | data.tx_json.hash            | String  | 交易 hash              |
 
-## 提交多个签名
+## 批量提交签名事务
 
 ### 类型 
 
@@ -640,7 +640,7 @@ POST
 
 ### 描述
 
-提交多个签名
+批量提交签名事务
 
 
 ### 请求地址
@@ -654,10 +654,10 @@ POST
 
 #### 参数介绍
 
-| 参数           | 类型   | 说明             |
-|----------------|--------|----------------|
-| txBlob         | Array  | 签名后的blob数组 |
-| txBlob[n].blob | String | 签名后的blob     |
+| 参数           | 位置 | 类型   | 说明             |
+|----------------|------|--------|----------------|
+| txBlob         | Body | Array  | 签名后的blob数组 |
+| txBlob[n].blob | Body | String | 签名后的blob     |
 
 #### 参数示例
 

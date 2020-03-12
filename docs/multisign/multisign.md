@@ -65,14 +65,14 @@ POST
 
 #### 参数介绍
 
-| 参数             | 类型    | 解析                                                        |
-| ---------------- | ------- | ----------------------------------------------------------- |
-| account          | String  | 井通账户                                                    |
-| secret           | String  | 井通钱包私钥             |
-| threshold        | Integer | 阈值                                                        |
-| lists            | String  | 签名列表                                                    |
-| lists[n].account | String  | 帐号                                                        |
-| lists[n].weight  | Integer | 权重                                                        |
+| 参数             | 位置 | 类型    | 说明         |
+|------------------|------|---------|------------|
+| account          | Path | String  | 井通账户     |
+| secret           | Body | String  | 井通钱包私钥 |
+| threshold        | Body | Integer | 阈值         |
+| lists            | Body | String  | 签名列表     |
+| lists[n].account | Body | String  | 帐号         |
+| lists[n].weight  | Body | Integer | 权重         |
 
 
 #### 返回值示例
@@ -117,30 +117,30 @@ POST
 ```
 #### 返回值解析
 
-| 参数                                                   | 类型    | 说明                                                     |
-| ------------------------------------------------------ | ------- | -------------------------------------------------------- |
-| success                                                | Boolean | 此次请求是否成功                                         |
-| msg                                                    | String  | 返回的信息                                               |
-| code                                                   | Integer | 服务器返回的请求状态码                                   |
-| data                                                   | String  | 数据或者错误信息                                         |
-| data.engine_result                                     | String  | 请求结果                                                 |
-| data.engine_result_code                                | Array   | 请求结果编码                                             |
-| data.engine_result_message                             | String  | 请求结果message信息                                      |
-| data.tx_blob                                           | String  | 16进制签名后的交易                                       |
-| data.tx_json                                           | Object  | 交易内容                                                 |
-| data.tx_json.Account                                   | String  | 交易源账号地址                                           |
-| data.tx_json.Fee                                       | String  | 交易费                                                   |
-| data.tx_json.Flags                                     | Integer | 交易标记                                                 |
-| data.tx_json.Sequence                                  | Integer | 单子序列号                                               |
+| 参数                                                   | 类型    | 说明                                                   |
+|--------------------------------------------------------|---------|------------------------------------------------------|
+| success                                                | Boolean | 此次请求是否成功                                       |
+| msg                                                    | String  | 返回的信息                                             |
+| code                                                   | Integer | 服务器返回的请求状态码                                 |
+| data                                                   | String  | 数据或者错误信息                                       |
+| data.engine_result                                     | String  | 请求结果                                               |
+| data.engine_result_code                                | Array   | 请求结果编码                                           |
+| data.engine_result_message                             | String  | 请求结果message信息                                    |
+| data.tx_blob                                           | String  | 16进制签名后的交易                                     |
+| data.tx_json                                           | Object  | 交易内容                                               |
+| data.tx_json.Account                                   | String  | 交易源账号地址                                         |
+| data.tx_json.Fee                                       | String  | 交易费                                                 |
+| data.tx_json.Flags                                     | Integer | 交易标记                                               |
+| data.tx_json.Sequence                                  | Integer | 单子序列号                                             |
 | data.tx_json.SignerEntries                             | Array   | 签名列表条目；销毁列表时，没有该字段                     |
-| data.tx_json.SignerEntries[n].SignerEntry              | Object  | 单个签名条目                                             |
-| data.tx_json.SignerEntries[n].SignerEntry.Account      | String  | 签名账号的地址                                           |
-| data.tx_json.SignerEntries[n].SignerEntry.SignerWeight | String  | 该签名在多重签名交易中的权重                             |
+| data.tx_json.SignerEntries[n].SignerEntry              | Object  | 单个签名条目                                           |
+| data.tx_json.SignerEntries[n].SignerEntry.Account      | String  | 签名账号的地址                                         |
+| data.tx_json.SignerEntries[n].SignerEntry.SignerWeight | String  | 该签名在多重签名交易中的权重                           |
 | data.tx_json.SignerQuorum                              | Integer | 多重签名交易通过的阈值，应大于等于零，零表示销毁签名列表 |
-| data.tx_json.SigningPubKey                             | String  | 签名公钥                                                 |
-| data.tx_json.TransactionType                           | String  | 交易类型，设置签名列表类为SignerListSet                  |
-| data.tx_json.TxnSignature                              | String  | 交易签名                                                 |
-| data.tx_json.hash                                      | String  | 交易hash                                                 |
+| data.tx_json.SigningPubKey                             | String  | 签名公钥                                               |
+| data.tx_json.TransactionType                           | String  | 交易类型，设置签名列表类为SignerListSet                 |
+| data.tx_json.TxnSignature                              | String  | 交易签名                                               |
+| data.tx_json.hash                                      | String  | 交易hash                                               |
 
 ## 废除帐号的主秘钥
 
@@ -170,10 +170,10 @@ POST
 
 #### 参数介绍
 
-| 参数    | 类型   | 解析                                                        |
-| ------- | ------ | ----------------------------------------------------------- |
-| account | String | 井通账户                                                    |
-| secret  | String | 井通钱包私钥             |
+| 参数    | 位置 | 类型   | 说明         |
+|---------|------|--------|------------|
+| account | Path | String | 井通账户     |
+| secret  | Body | String | 井通钱包私钥 |
 
 #### 返回值示例
 
@@ -203,26 +203,26 @@ POST
 ```
 #### 返回值解析
 
-| 参数                         | 类型    | 说明                             |
-| ---------------------------- | ------- | -------------------------------- |
-| success                      | Boolean | 此次请求是否成功                 |
-| msg                          | String  | 返回的信息                       |
-| code                         | Integer | 服务器返回的请求状态码           |
-| data                         | String  | 数据或者错误信息                 |
-| data.engine_result           | String  | 请求结果                         |
-| data.engine_result_code      | Array   | 请求结果编码                     |
-| data.engine_result_message   | String  | 请求结果message信息              |
-| data.tx_blob                 | String  | 16进制签名后的交易               |
-| data.tx_json                 | Object  | 交易内容                         |
-| data.tx_json.Account         | String  | 交易源账号地址                   |
-| data.tx_json.Fee             | String  | 交易费                           |
-| data.tx_json.Flags           | Integer | 交易标记                         |
-| data.tx_json.Sequence        | Integer | 单子序列号                       |
-| data.tx_json.SetFlag         | Integer | 账号属性标记                     |
-| data.tx_json.SigningPubKey   | String  | 签名公钥                         |
+| 参数                         | 类型    | 说明                            |
+|------------------------------|---------|-------------------------------|
+| success                      | Boolean | 此次请求是否成功                |
+| msg                          | String  | 返回的信息                      |
+| code                         | Integer | 服务器返回的请求状态码          |
+| data                         | String  | 数据或者错误信息                |
+| data.engine_result           | String  | 请求结果                        |
+| data.engine_result_code      | Array   | 请求结果编码                    |
+| data.engine_result_message   | String  | 请求结果message信息             |
+| data.tx_blob                 | String  | 16进制签名后的交易              |
+| data.tx_json                 | Object  | 交易内容                        |
+| data.tx_json.Account         | String  | 交易源账号地址                  |
+| data.tx_json.Fee             | String  | 交易费                          |
+| data.tx_json.Flags           | Integer | 交易标记                        |
+| data.tx_json.Sequence        | Integer | 单子序列号                      |
+| data.tx_json.SetFlag         | Integer | 账号属性标记                    |
+| data.tx_json.SigningPubKey   | String  | 签名公钥                        |
 | data.tx_json.TransactionType | String  | 交易类型，账号属性类为AccountSet |
-| data.tx_json.TxnSignature    | String  | 交易签名                         |
-| data.tx_json.hash            | String  | 交易hash                         |
+| data.tx_json.TxnSignature    | String  | 交易签名                        |
+| data.tx_json.hash            | String  | 交易hash                        |
 
 ## 激活帐号的主秘钥
 
@@ -261,12 +261,12 @@ POST
 
 #### 参数介绍
 
-| 参数             | 类型   | 解析                                                        |
-| ---------------- | ------ | ----------------------------------------------------------- |
-| account          | String | 井通账户                                                    |
-| lists            | Array  | 多签列表的地址列表                                          |
-| lists[n].account | String | 多签列表的井通账户                                          |
-| lists[n].secret  | String | 井通钱包私钥,如果             |
+| 参数             | 位置 | 类型   | 说明               |
+|------------------|------|--------|------------------|
+| account          | Path | String | 井通账户           |
+| lists            | Body | Array  | 多签列表的地址列表 |
+| lists[n].account | Body | String | 多签列表的井通账户 |
+| lists[n].secret  | Body | String | 井通钱包私钥,如果  |
 
 #### 返回值示例
 
@@ -314,30 +314,30 @@ POST
 ```
 #### 返回值解析
 
-| 参数                                         | 类型    | 说明                                 |
-| -------------------------------------------- | ------- | ------------------------------------ |
-| success                                      | Boolean | 此次请求是否成功                     |
-| msg                                          | String  | 返回的信息                           |
-| code                                         | Integer | 服务器返回的请求状态码               |
-| data                                         | String  | 数据或者错误信息                     |
-| data.engine_result                           | String  | 请求结果                             |
-| data.engine_result_code                      | Array   | 请求结果编码                         |
-| data.engine_result_message                   | String  | 请求结果message信息                  |
-| data.tx_blob                                 | String  | 16进制签名后的交易                   |
-| data.tx_json                                 | Object  | 交易内容                             |
-| data.tx_json.Account                         | String  | 交易源账号地址                       |
-| data.tx_json.ClearFlag                       | Integer | 账号属性标记                         |
-| data.tx_json.Fee                             | String  | 交易费                               |
-| data.tx_json.Flags                           | Integer | 交易标记                             |
-| data.tx_json.Sequence                        | Integer | 单子序列号                           |
-| data.tx_json.SigningPubKey                   | String  | 签名公钥                             |
-| data.tx_json.TransactionType                 | String  | 交易类型，账号属性类为AccountSet     |
-| data.tx_json.hash                            | String  | 交易hash                             |
+| 参数                                         | 类型    | 说明                               |
+|----------------------------------------------|---------|----------------------------------|
+| success                                      | Boolean | 此次请求是否成功                   |
+| msg                                          | String  | 返回的信息                         |
+| code                                         | Integer | 服务器返回的请求状态码             |
+| data                                         | String  | 数据或者错误信息                   |
+| data.engine_result                           | String  | 请求结果                           |
+| data.engine_result_code                      | Array   | 请求结果编码                       |
+| data.engine_result_message                   | String  | 请求结果message信息                |
+| data.tx_blob                                 | String  | 16进制签名后的交易                 |
+| data.tx_json                                 | Object  | 交易内容                           |
+| data.tx_json.Account                         | String  | 交易源账号地址                     |
+| data.tx_json.ClearFlag                       | Integer | 账号属性标记                       |
+| data.tx_json.Fee                             | String  | 交易费                             |
+| data.tx_json.Flags                           | Integer | 交易标记                           |
+| data.tx_json.Sequence                        | Integer | 单子序列号                         |
+| data.tx_json.SigningPubKey                   | String  | 签名公钥                           |
+| data.tx_json.TransactionType                 | String  | 交易类型，账号属性类为AccountSet    |
+| data.tx_json.hash                            | String  | 交易hash                           |
 | data.tx_json.Signers                         | Array   | 签名列表条目；销毁列表时，没有该字段 |
-| data.tx_json.Signers[n].Signer               | Object  | 单个签名条目                         |
-| data.tx_json.Signers[n].Signer.Account       | String  | 给该交易签名的账号地址               |
-| data.tx_json.Signers[n].Signer.SigningPubKey | String  | 给该交易签名的账号公钥               |
-| data.tx_json.Signers[n].Signer.TxnSignature  | String  | Account账号给该交易的交易签名        |
+| data.tx_json.Signers[n].Signer               | Object  | 单个签名条目                       |
+| data.tx_json.Signers[n].Signer.Account       | String  | 给该交易签名的账号地址             |
+| data.tx_json.Signers[n].Signer.SigningPubKey | String  | 给该交易签名的账号公钥             |
+| data.tx_json.Signers[n].Signer.TxnSignature  | String  | Account账号给该交易的交易签名      |
 
 ## 直接多重签名交易
 
@@ -382,17 +382,17 @@ POST
 
 #### 参数介绍
 
-| 参数             | 类型    | 解析                                                        |
-| ---------------- | ------- | ----------------------------------------------------------- |
-| account          | String  | 发起账号                                                    |
-| to               | String  | 目标账号                                                    |
-| value            | String  | 支付数量                                                    |
-| currency         | String  | 货币种类，三到六个字母或 20 字节的自定义货币                |
-| issuer           | String? | 货币发行方，无则留 ''                                       |
-| addMemo          | String? | 备注信息                                                    |
-| lists            | Array   | 多签列表的地址列表                                          |
-| lists[n].account | String  | 多签列表的井通账户                                          |
-| lists[n].secret  | String  | 井通钱包私钥             |
+| 参数             | 位置 | 类型    | 说明                                        |
+|------------------|------|---------|-------------------------------------------|
+| account          | Body | String  | 发起账号                                    |
+| to               | Body | String  | 目标账号                                    |
+| value            | Body | String  | 支付数量                                    |
+| currency         | Body | String  | 货币种类，三到六个字母或 20 字节的自定义货币 |
+| issuer           | Body | String? | 货币发行方，无则留 ''                        |
+| addMemo          | Body | String? | 备注信息                                    |
+| lists            | Body | Array   | 多签列表的地址列表                          |
+| lists[n].account | Body | String  | 多签列表的井通账户                          |
+| lists[n].secret  | Body | String  | 井通钱包私钥                                |
 
 #### 返回值示例
 
@@ -449,31 +449,31 @@ POST
 ```
 #### 返回值解析
 
-| 参数                                         | 类型    | 说明                                                                           |
-| -------------------------------------------- | ------- | ------------------------------------------------------------------------------ |
-| success                                      | Boolean | 此次请求是否成功                                                               |
-| msg                                          | String  | 返回的信息                                                                     |
-| code                                         | Integer | 服务器返回的请求状态码                                                         |
-| data                                         | String  | 数据或者错误信息                                                               |
-| data.engine_result                           | String  | 请求结果                                                                       |
-| data.engine_result_code                      | Array   | 请求结果编码                                                                   |
-| data.engine_result_message                   | String  | 请求结果message信息                                                            |
-| data.tx_blob                                 | String  | 16进制签名后的交易                                                             |
-| data.tx_json                                 | Object  | 交易内容                                                                       |
-| data.tx_json.Account                         | String  | 交易源账号地址                                                                 |
-| data.tx_json.ClearFlag                       | Integer | 账号属性标记                                                                   |
-| data.tx_json.Fee                             | String  | 交易费                                                                         |
-| data.tx_json.Flags                           | Integer | 交易标记                                                                       |
-| data.tx_json.Sequence                        | Integer | 单子序列号                                                                     |
+| 参数                                         | 类型    | 说明                                                                        |
+|----------------------------------------------|---------|---------------------------------------------------------------------------|
+| success                                      | Boolean | 此次请求是否成功                                                            |
+| msg                                          | String  | 返回的信息                                                                  |
+| code                                         | Integer | 服务器返回的请求状态码                                                      |
+| data                                         | String  | 数据或者错误信息                                                            |
+| data.engine_result                           | String  | 请求结果                                                                    |
+| data.engine_result_code                      | Array   | 请求结果编码                                                                |
+| data.engine_result_message                   | String  | 请求结果message信息                                                         |
+| data.tx_blob                                 | String  | 16进制签名后的交易                                                          |
+| data.tx_json                                 | Object  | 交易内容                                                                    |
+| data.tx_json.Account                         | String  | 交易源账号地址                                                              |
+| data.tx_json.ClearFlag                       | Integer | 账号属性标记                                                                |
+| data.tx_json.Fee                             | String  | 交易费                                                                      |
+| data.tx_json.Flags                           | Integer | 交易标记                                                                    |
+| data.tx_json.Sequence                        | Integer | 单子序列号                                                                  |
 | data.tx_json.--                              | --      | 相关交易对应的其他字段，如Payment类型有Amount、Destination字段，这里不一一列举 |
-| data.tx_json.SigningPubKey                   | String  | 签名公钥                                                                       |
-| data.tx_json.TransactionType                 | String  | 交易类型，账号属性类为AccountSet                                               |
-| data.tx_json.hash                            | String  | 交易hash                                                                       |
-| data.tx_json.Signers                         | Array   | 签名列表条目；销毁列表时，没有该字段                                           |
-| data.tx_json.Signers[n].Signer               | Object  | 单个签名条目                                                                   |
-| data.tx_json.Signers[n].Signer.Account       | String  | 给该交易签名的账号地址                                                         |
-| data.tx_json.Signers[n].Signer.SigningPubKey | String  | 给该交易签名的账号公钥                                                         |
-| data.tx_json.Signers[n].Signer.TxnSignature  | String  | Account账号给该交易的交易签名                                                  |
+| data.tx_json.SigningPubKey                   | String  | 签名公钥                                                                    |
+| data.tx_json.TransactionType                 | String  | 交易类型，账号属性类为AccountSet                                             |
+| data.tx_json.hash                            | String  | 交易hash                                                                    |
+| data.tx_json.Signers                         | Array   | 签名列表条目；销毁列表时，没有该字段                                          |
+| data.tx_json.Signers[n].Signer               | Object  | 单个签名条目                                                                |
+| data.tx_json.Signers[n].Signer.Account       | String  | 给该交易签名的账号地址                                                      |
+| data.tx_json.Signers[n].Signer.SigningPubKey | String  | 给该交易签名的账号公钥                                                      |
+| data.tx_json.Signers[n].Signer.TxnSignature  | String  | Account账号给该交易的交易签名                                               |
 
 ## 发起多重签名交易
 
@@ -516,17 +516,17 @@ POST
 
 #### 参数介绍
 
-| 参数            | 类型    | 解析                                                                     |
-| --------------- | ------- | ------------------------------------------------------------------------ |
-| account         | String  | 主交易账号                                                               |
-| to              | String  | 目标账号                                                                 |
-| value           | String  | 支付数量                                                                 |
-| currency        | String  | 货币种类，三到六个字母或 20 字节的自定义货币                             |
-| issuer          | String? | 货币发行方，无则留 ''                                                    |
-| addMemo         | String? | 备注信息                                                                 |
-| initiateAccount | String  | 多签列表内的地址之一，这笔多签交易由此账号发起                           |
-| initiateSecret  | String  | 对应的井通钱包私钥                   |
-| listsLength     | Integer | 准备签署的账号数量，几个账号准备签名这里就填写几，在签名中计算手续费使用 |
+| 参数            | 位置 | 类型    | 说明                                                                   |
+|-----------------|------|---------|----------------------------------------------------------------------|
+| account         | Body | String  | 主交易账号                                                             |
+| to              | Body | String  | 目标账号                                                               |
+| value           | Body | String  | 支付数量                                                               |
+| currency        | Body | String  | 货币种类，三到六个字母或 20 字节的自定义货币                            |
+| issuer          | Body | String? | 货币发行方，无则留 ''                                                   |
+| addMemo         | Body | String? | 备注信息                                                               |
+| initiateAccount | Body | String  | 多签列表内的地址之一，这笔多签交易由此账号发起                          |
+| initiateSecret  | Body | String  | 对应的井通钱包私钥                                                     |
+| listsLength     | Body | Integer | 准备签署的账号数量，几个账号准备签名这里就填写几，在签名中计算手续费使用 |
 
 #### 返回值示例
 
@@ -571,14 +571,14 @@ POST
 ```
 #### 返回值解析
 
-| 参数            | 类型    | 说明                                     |
-| --------------- | ------- | ---------------------------------------- |
-| success         | Boolean | 此次请求是否成功                         |
-| msg             | String  | 返回的信息                               |
-| code            | Integer | 服务器返回的请求状态码                   |
-| data            | String  | 数据或者错误信息                         |
+| 参数            | 类型    | 说明                                    |
+|-----------------|---------|---------------------------------------|
+| success         | Boolean | 此次请求是否成功                        |
+| msg             | String  | 返回的信息                              |
+| code            | Integer | 服务器返回的请求状态码                  |
+| data            | String  | 数据或者错误信息                        |
 | data.tx_json    | Object  | 签署之后的对象，其他账号签署需要这个对象 |
-| data.tx_json.-- | --      | 对象内部的结构不多做解释                 |
+| data.tx_json.-- | --      | 对象内部的结构不多做解释                |
 
 
 ## 加入多重签名交易
@@ -642,11 +642,11 @@ POST
 
 #### 参数介绍
 
-| 参数            | 类型    | 解析                                                                     |
-| --------------- | ------- | ------------------------------------------------------------------------ |
-| joinAccount | String  | 多签列表内的地址之一，需要加入签名的账号                           |
-| joinSecret  | String  | 对应的井通钱包私钥                   |
-| tx_json     | Object | 上一步服务器返回的tx_json的原样copy，tx_json的值不能修改，否则交易不能成功 |
+| 参数        | 位置 | 类型   | 说明                                                                     |
+|-------------|------|--------|------------------------------------------------------------------------|
+| joinAccount | Body | String | 多签列表内的地址之一，需要加入签名的账号                                  |
+| joinSecret  | Body | String | 对应的井通钱包私钥                                                       |
+| tx_json     | Body | Object | 上一步服务器返回的tx_json的原样copy，tx_json的值不能修改，否则交易不能成功 |
 
 #### 返回值示例
 
@@ -698,14 +698,14 @@ POST
 ```
 #### 返回值解析
 
-| 参数            | 类型    | 说明                                     |
-| --------------- | ------- | ---------------------------------------- |
-| success         | Boolean | 此次请求是否成功                         |
-| msg             | String  | 返回的信息                               |
-| code            | Integer | 服务器返回的请求状态码                   |
-| data            | String  | 数据或者错误信息                         |
+| 参数            | 类型    | 说明                                    |
+|-----------------|---------|---------------------------------------|
+| success         | Boolean | 此次请求是否成功                        |
+| msg             | String  | 返回的信息                              |
+| code            | Integer | 服务器返回的请求状态码                  |
+| data            | String  | 数据或者错误信息                        |
 | data.tx_json    | Object  | 签署之后的对象，其他账号签署需要这个对象 |
-| data.tx_json.-- | --      | 对象内部的结构不多做解释                 |
+| data.tx_json.-- | --      | 对象内部的结构不多做解释                |
 
 
 ## 结束多重签名并进行交易
@@ -776,9 +776,9 @@ POST
 
 #### 参数介绍
 
-| 参数            | 类型    | 解析                                                                     |
-| --------------- | ------- | ------------------------------------------------------------------------ |
-| tx_json     | Object | 签名完毕之后的tx_json的原样copy，tx_json的值不能修改，否则交易不能成功 |
+| 参数    | 位置 | 类型   | 说明                                                                 |
+|---------|------|--------|--------------------------------------------------------------------|
+| tx_json | Body | Object | 签名完毕之后的tx_json的原样copy，tx_json的值不能修改，否则交易不能成功 |
 
 #### 返回值示例
 
@@ -837,28 +837,28 @@ POST
 ```
 #### 返回值解析
 
-| 参数                                         | 类型    | 说明                                                                           |
-| -------------------------------------------- | ------- | ------------------------------------------------------------------------------ |
-| success                                      | Boolean | 此次请求是否成功                                                               |
-| msg                                          | String  | 返回的信息                                                                     |
-| code                                         | Integer | 服务器返回的请求状态码                                                         |
-| data                                         | String  | 数据或者错误信息                                                               |
-| data.engine_result                           | String  | 请求结果                                                                       |
-| data.engine_result_code                      | Array   | 请求结果编码                                                                   |
-| data.engine_result_message                   | String  | 请求结果message信息                                                            |
-| data.tx_blob                                 | String  | 16进制签名后的交易                                                             |
-| data.tx_json                                 | Object  | 交易内容                                                                       |
-| data.tx_json.Account                         | String  | 交易源账号地址                                                                 |
-| data.tx_json.ClearFlag                       | Integer | 账号属性标记                                                                   |
-| data.tx_json.Fee                             | String  | 交易费                                                                         |
-| data.tx_json.Flags                           | Integer | 交易标记                                                                       |
-| data.tx_json.Sequence                        | Integer | 单子序列号                                                                     |
+| 参数                                         | 类型    | 说明                                                                        |
+|----------------------------------------------|---------|---------------------------------------------------------------------------|
+| success                                      | Boolean | 此次请求是否成功                                                            |
+| msg                                          | String  | 返回的信息                                                                  |
+| code                                         | Integer | 服务器返回的请求状态码                                                      |
+| data                                         | String  | 数据或者错误信息                                                            |
+| data.engine_result                           | String  | 请求结果                                                                    |
+| data.engine_result_code                      | Array   | 请求结果编码                                                                |
+| data.engine_result_message                   | String  | 请求结果message信息                                                         |
+| data.tx_blob                                 | String  | 16进制签名后的交易                                                          |
+| data.tx_json                                 | Object  | 交易内容                                                                    |
+| data.tx_json.Account                         | String  | 交易源账号地址                                                              |
+| data.tx_json.ClearFlag                       | Integer | 账号属性标记                                                                |
+| data.tx_json.Fee                             | String  | 交易费                                                                      |
+| data.tx_json.Flags                           | Integer | 交易标记                                                                    |
+| data.tx_json.Sequence                        | Integer | 单子序列号                                                                  |
 | data.tx_json.--                              | --      | 相关交易对应的其他字段，如Payment类型有Amount、Destination字段，这里不一一列举 |
-| data.tx_json.SigningPubKey                   | String  | 签名公钥                                                                       |
-| data.tx_json.TransactionType                 | String  | 交易类型，账号属性类为AccountSet                                               |
-| data.tx_json.hash                            | String  | 交易hash                                                                       |
-| data.tx_json.Signers                         | Array   | 签名列表条目；销毁列表时，没有该字段                                           |
-| data.tx_json.Signers[n].Signer               | Object  | 单个签名条目                                                                   |
-| data.tx_json.Signers[n].Signer.Account       | String  | 给该交易签名的账号地址                                                         |
-| data.tx_json.Signers[n].Signer.SigningPubKey | String  | 给该交易签名的账号公钥                                                         |
-| data.tx_json.Signers[n].Signer.TxnSignature  | String  | Account账号给该交易的交易签名                                                  |
+| data.tx_json.SigningPubKey                   | String  | 签名公钥                                                                    |
+| data.tx_json.TransactionType                 | String  | 交易类型，账号属性类为AccountSet                                             |
+| data.tx_json.hash                            | String  | 交易hash                                                                    |
+| data.tx_json.Signers                         | Array   | 签名列表条目；销毁列表时，没有该字段                                          |
+| data.tx_json.Signers[n].Signer               | Object  | 单个签名条目                                                                |
+| data.tx_json.Signers[n].Signer.Account       | String  | 给该交易签名的账号地址                                                      |
+| data.tx_json.Signers[n].Signer.SigningPubKey | String  | 给该交易签名的账号公钥                                                      |
+| data.tx_json.Signers[n].Signer.TxnSignature  | String  | Account账号给该交易的交易签名                                               |

@@ -1,4 +1,4 @@
-## 单笔事务签名
+## 单笔支付签名
 
 ### 类型 
 
@@ -17,16 +17,16 @@ POST
 
 #### 参数介绍
 
-| 参数     | 类型    | 说明                                                        |
-|----------|---------|-----------------------------------------------------------|
-| account  | String  | 发起账号                                                    |
-| to       | String  | 目标账号                                                    |
-| value    | String  | 支付数量                                                    |
-| currency | String  | 货币种类，三到六个字母或 20 字节的自定义货币                 |
-| issuer   | String  | 货币发行方，无则留 ''                                        |
-| secret   | String  | 井通钱包私钥             |
-| addMemo  | String? | 备注信息                                                    |
-| sequence | String? | 此次签名里面添加的sequence，不传则是默认下一次的sequence     |
+| 参数     | 位置 | 类型    | 说明                                                    |
+|----------|------|---------|-------------------------------------------------------|
+| account  | Body | String  | 发起账号                                                |
+| to       | Body | String  | 目标账号                                                |
+| value    | Body | String  | 支付数量                                                |
+| currency | Body | String  | 货币种类，三到六个字母或 20 字节的自定义货币             |
+| issuer   | Body | String  | 货币发行方，无则留 ''                                    |
+| secret   | Body | String  | 井通钱包私钥                                            |
+| addMemo  | Body | String? | 备注信息                                                |
+| sequence | Body | String? | 此次签名里面添加的sequence，不传则是默认下一次的sequence |
 
 #### 参数示例
 
@@ -62,7 +62,7 @@ POST
 | code    | Integer | 服务器返回的请求状态码 |
 | data    | String  | 签名信息               |
 
-## 一对多批量签名
+## 一对多批量支付签名
 
 ### 类型 
 
@@ -70,7 +70,7 @@ POST
 
 ### 描述
 
-一对多批量签名，此接口默认后台会获取到sequence，不需要自行管理。此接口为单个账户向多个账户发出交易时使用。
+一对多批量支付签名，此接口默认后台会获取到sequence，不需要自行管理。此接口为单个账户向多个账户发出交易时使用。
 
 
 ### 请求地址
@@ -82,16 +82,16 @@ POST
 
 #### 参数介绍
 
-| 参数           | 类型    | 说明                                                        |
-|----------------|---------|-----------------------------------------------------------|
-| account        | String  | 发起账号                                                    |
-| secret         | String  | 井通钱包私钥             |
-| tx             | Array   | 需要交易的地址对                                            |
-| tx[n].to       | String  | 目标账号                                                    |
-| tx[n].value    | String  | 支付数量                                                    |
-| tx[n].currency | String  | 货币种类，三到六个字母或 20 字节的自定义货币                 |
-| tx[n].issuer   | String  | 货币发行方，无则留 ''                                        |
-| tx[n].addMemo  | String? | 备注信息                                                    |
+| 参数           | 位置 | 类型    | 说明                                        |
+|----------------|------|---------|-------------------------------------------|
+| account        | Body | String  | 发起账号                                    |
+| secret         | Body | String  | 井通钱包私钥                                |
+| tx             | Body | Array   | 需要交易的地址对                            |
+| tx[n].to       | Body | String  | 目标账号                                    |
+| tx[n].value    | Body | String  | 支付数量                                    |
+| tx[n].currency | Body | String  | 货币种类，三到六个字母或 20 字节的自定义货币 |
+| tx[n].issuer   | Body | String  | 货币发行方，无则留 ''                        |
+| tx[n].addMemo  | Body | String? | 备注信息                                    |
 
 #### 参数示例
 
@@ -151,7 +151,7 @@ POST
 | data[n] | String  | 对应的签名信息               |
 
 
-## 多对多批量签名
+## 多对多批量支付签名
 
 ### 类型 
 
@@ -159,7 +159,7 @@ POST
 
 ### 描述
 
-多对多批量签名，是对一对多批量签名的拓展。提供多个账号对多个账号之间的交易签名，每笔交易内部的currency可以不同。服务器内部自动管理sequence。
+多对多批量支付签名，是对一对多批量签名的拓展。提供多个账号对多个账号之间的交易签名，每笔交易内部的currency可以不同。服务器内部自动管理sequence。
 
 签名出来的blob内部包含sequence，请发送签名的时候按照顺序进行发送。
 
@@ -172,16 +172,16 @@ POST
 
 #### 参数介绍
 
-| 参数           | 类型    | 说明                                        |
-|----------------|---------|-------------------------------------------|
-| tx             | Array   | 需要交易的地址对                            |
-| tx[n].account  | String  | 发起账号                                    |
-| tx[n].secret   | String  | 井通钱包私钥                                |
-| tx[n].to       | String  | 目标账号                                    |
-| tx[n].value    | String  | 支付数量                                    |
-| tx[n].currency | String  | 货币种类，三到六个字母或 20 字节的自定义货币 |
-| tx[n].issuer   | String  | 货币发行方，无则留 ''                        |
-| tx[n].addMemo  | String? | 备注信息                                    |
+| 参数           | 位置 | 类型    | 说明                                        |
+|----------------|------|---------|-------------------------------------------|
+| tx             | Body | Array   | 需要交易的地址对                            |
+| tx[n].account  | Body | String  | 发起账号                                    |
+| tx[n].secret   | Body | String  | 井通钱包私钥                                |
+| tx[n].to       | Body | String  | 目标账号                                    |
+| tx[n].value    | Body | String  | 支付数量                                    |
+| tx[n].currency | Body | String  | 货币种类，三到六个字母或 20 字节的自定义货币 |
+| tx[n].issuer   | Body | String  | 货币发行方，无则留 ''                        |
+| tx[n].addMemo  | Body | String? | 备注信息                                    |
 
 #### 参数示例
 
