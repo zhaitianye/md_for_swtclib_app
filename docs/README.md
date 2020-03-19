@@ -15,6 +15,7 @@
 * 尽量保持提供的接口数量和 [SWTC-Proxy](https://swtcdoc.netlify.com/docs/swtcproxy/) 保持一致
 * 所有API应答均为 JSON， 包括数据和错误
 * 尽量支持可选参数， 几乎所有SWTC-LIB支持的参数都可以通过Query获得支持
-* 面向企业用户，定制化服务，支持 git 一键部署。未来支持 docker 镜像部署
+* 面向企业用户，定制化服务
+* 快速接入，支持 [Docker一键部署](../release/release.md)
 * MD 标准文档
 * 完整的 [更新说明](../update/update.md)

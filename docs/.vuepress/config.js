@@ -17,6 +17,7 @@ module.exports = {
       ['/sign/sign.md', '签名相关'],
       ['/multisign/multisign.md', '多签相关'],
       ['/security/security.md', '安全相关'],
+      ['/release/release.md', 'Docker部署'],
       ['/appendix/appendix.md', '附录'],
       ['/update/update.md', '更新说明']
     ],
