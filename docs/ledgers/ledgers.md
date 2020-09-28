@@ -1,4 +1,4 @@
-## 获取最新关闭的账本信息
+## 获取最新账本信息
 
 ### 类型 
 
@@ -6,7 +6,7 @@ GET
 
 ### 描述
 
-获取最新关闭的账本信息
+获取最新关闭的账本高度和账本的hash
 
 ### 参数说明
 
@@ -42,7 +42,7 @@ GET
 | data.ledger_index | String  | 账本高度/区块高度      |
 
 
-## 根据hash获取某一账本具体信息
+## 根据hash获取账本信息
 
 ### 类型 
 
@@ -50,7 +50,7 @@ GET
 
 ### 描述
 
-获取某一账本具体信息
+根据hash获取某一账本具体信息
 
 ### 请求地址
 ```
@@ -110,7 +110,7 @@ GET
 | data.account_hash           | String  | 状态 hash 树根         |
 | data.close_time             | Integer | 关闭时间               |
 | data.close_time_human       | String  | 关闭时间               |
-| data.close_time_resoluti on | Integer | 关闭周期               |
+| data.close_time_resolution  | Integer | 关闭周期               |
 | data.closed                 | Boolean | 账本是否已经关闭       |
 | data.hash                   | String  | 账本 hash              |
 | data.ledger_hash            | String  | 账本 hash              |
@@ -123,7 +123,7 @@ GET
 | data.transactions           | Array   | 该账本里的交易列表     |
 | data.transactions[n]        | String  | 交易Hash               |
 
-## 获取某一账本具体信息根据账本高度
+## 根据高度获取账本信息
 
 ### 类型 
 
@@ -191,7 +191,7 @@ GET
 | data.account_hash           | String  | 状态 hash 树根         |
 | data.close_time             | Integer | 关闭时间               |
 | data.close_time_human       | String  | 关闭时间               |
-| data.close_time_resoluti on | Integer | 关闭周期               |
+| data.close_time_resolution  | Integer | 关闭周期               |
 | data.closed                 | Boolean | 账本是否已经关闭       |
 | data.hash                   | String  | 账本 hash              |
 | data.ledger_hash            | String  | 账本 hash              |

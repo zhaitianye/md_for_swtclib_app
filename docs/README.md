@@ -1,3 +1,7 @@
+# `通知：此文档链接已经迁移！！！！` 
+
+# [新文档地址](https://swtclib-app.jingtumzs.com/)
+
 # SWTCLIB_APP
 
 > 作为SWTC-LIB处理的中间层,提供 RESTFul API 接口服务

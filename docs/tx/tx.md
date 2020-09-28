@@ -6,16 +6,13 @@ GET
 
 ### 描述
 
-根据HASH查询事务
+根据HASH查询事务，事务不仅仅代表交易事务，如多签事务产出，挂单事务，设置账号挂单佣金等事务产生的hash都可以用此接口查询。
 
 
 ### 请求地址
 ```
 {{host}}/tx/:hash
 ```
-
-### 参数说明
-
 #### 参数介绍
 
 | 参数 | 位置 | 类型   | 说明      |
@@ -85,32 +82,32 @@ GET
 ```
 ### 返回值解析
 
-| 参数                        | 类型           | 说明                   |
-|-----------------------------|----------------|------------------------|
-| success                     | Boolean        | 此次请求是否成功       |
-| msg                         | String         | 返回的信息             |
-| code                        | Integer        | 服务器返回的请求状态码 |
-| data                        | Object         | SWTC-LIB 返回的数据    |
-| data.Account                | String         | 钱包地址               |
-| data.Amount                 | String/O bject | 交易金额               |
-| data.Destination            | String         | 交易对家地址           |
-| data.Fee                    | String         | 交易费                 |
-| data.Flags                  | Integer        | 交易标记               |
-| data.Memos                  | Array          | 备注                   |
-| data.Sequence               | Integer        | 自身账号的交易号       |
-| data.SigningPubKey          | String         | 签名公钥               |
-| data.Timestamp              | Integer        | 交易提交时间戳         |
-| data.TransactionType        | String         | 交易类型               |
-| data.TxnSignature           | String         | 交易签名               |
-| data.date                   | Integer        | 交易进账本时间         |
-| data.hash                   | String         | 交易 hash              |
-| data.inLedger               | Integer        | 交易所在的账本号       |
-| data.ledger_index           | Integer        | 账本高度               |
-| data.meta                   | Object         | 交易影响的节点         |
-| data.meta.AffectedNodes     | Array          | 受影响的节点           |
-| data.meta.TransactionIndex  | Integer        | --                     |
-| data.meta.TransactionResult | String         | 交易结果               |
-| data.validated              | Boolean        | 交易是否通过验证       |
+| 参数                        | 类型           | 说明                                        |
+|-----------------------------|----------------|---------------------------------------------|
+| success                     | Boolean        | 此次请求是否成功                            |
+| msg                         | String         | 返回的信息                                  |
+| code                        | Integer        | 服务器返回的请求状态码                      |
+| data                        | Object         | SWTC-LIB 返回的数据                         |
+| data.Account                | String         | 钱包地址                                    |
+| data.Amount                 | String/O bject | 交易金额                                    |
+| data.Destination            | String         | 交易对家地址                                |
+| data.Fee                    | String         | 交易费                                      |
+| data.Flags                  | Integer        | 交易标记                                    |
+| data.Memos                  | Array          | 备注                                        |
+| data.Sequence               | Integer        | 自身账号的交易号                            |
+| data.SigningPubKey          | String         | 签名公钥                                    |
+| data.Timestamp              | Integer        | 交易提交时间戳                              |
+| data.TransactionType        | String         | 交易类型                                    |
+| data.TxnSignature           | String         | 交易签名                                    |
+| data.date                   | Integer        | 交易进账本时间(转换为时间戳需要加946684800) |
+| data.hash                   | String         | 交易 hash                                   |
+| data.inLedger               | Integer        | 交易所在的账本号                            |
+| data.ledger_index           | Integer        | 账本高度                                    |
+| data.meta                   | Object         | 交易影响的节点                              |
+| data.meta.AffectedNodes     | Array          | 受影响的节点                                |
+| data.meta.TransactionIndex  | Integer        | --                                          |
+| data.meta.TransactionResult | String         | 交易结果                                    |
+| data.validated              | Boolean        | 交易是否通过验证                            |
 
 
 ## 单笔支付
@@ -232,7 +229,7 @@ POST
   1. 新注册用户发放奖励，平台配置一个发放币的账号采用此接口批量转账
   2. 抢红包，并发量大的场景。使用此接口
   3. 收益分发，等分发场景
-  4. 新用户激活账户，一个账号给大批账号转SWT的场景
+  4. 新用户激活账号，一个账号给大批账号转SWT的场景
   5. ...
 
 ### 请求地址
@@ -544,7 +541,7 @@ POST
 
 ### 描述
 
-单个提交签名事务
+单个提交签名事务，此事务不仅仅适用于普通转账。如多签事务，挂单事务等签名都可以使用此接口进行提交。
 
 
 ### 请求地址
@@ -569,6 +566,8 @@ POST
 ```
 
 ### 返回值示例
+
+> 此返回值示例为普通交易的事务返回，其他事务需要根据具体情况处理
 
 ```JSON
 {
@@ -640,7 +639,7 @@ POST
 
 ### 描述
 
-批量提交签名事务
+批量提交签名事务，使用此接口时候会按照参数内部顺序来提交。
 
 
 ### 请求地址

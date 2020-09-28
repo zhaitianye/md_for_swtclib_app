@@ -67,7 +67,7 @@ POST
 
 | 参数             | 位置 | 类型    | 说明         |
 |------------------|------|---------|------------|
-| account          | Path | String  | 井通账户     |
+| account          | Path | String  | 井通账号     |
 | secret           | Body | String  | 井通钱包私钥 |
 | threshold        | Body | Integer | 阈值         |
 | lists            | Body | String  | 签名列表     |
@@ -172,7 +172,7 @@ POST
 
 | 参数    | 位置 | 类型   | 说明         |
 |---------|------|--------|------------|
-| account | Path | String | 井通账户     |
+| account | Path | String | 井通账号     |
 | secret  | Body | String | 井通钱包私钥 |
 
 #### 返回值示例
@@ -263,9 +263,9 @@ POST
 
 | 参数             | 位置 | 类型   | 说明               |
 |------------------|------|--------|------------------|
-| account          | Path | String | 井通账户           |
+| account          | Path | String | 井通账号           |
 | lists            | Body | Array  | 多签列表的地址列表 |
-| lists[n].account | Body | String | 多签列表的井通账户 |
+| lists[n].account | Body | String | 多签列表的井通账号 |
 | lists[n].secret  | Body | String | 井通钱包私钥,如果  |
 
 #### 返回值示例
@@ -391,7 +391,7 @@ POST
 | issuer           | Body | String? | 货币发行方，无则留 ''                        |
 | addMemo          | Body | String? | 备注信息                                    |
 | lists            | Body | Array   | 多签列表的地址列表                          |
-| lists[n].account | Body | String  | 多签列表的井通账户                          |
+| lists[n].account | Body | String  | 多签列表的井通账号                          |
 | lists[n].secret  | Body | String  | 井通钱包私钥                                |
 
 #### 返回值示例

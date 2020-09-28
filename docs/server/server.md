@@ -1,4 +1,4 @@
-## 创建连接获取服务器基础信息
+## 请求服务器基础信息
 
 ### 类型 
 
@@ -8,14 +8,13 @@ GET
 
 创建连接获取服务器基础信息
 
-### 参数说明
-
-无
-
 ### 请求地址
 ```
 {{host}}/server/info
 ```
+### 参数说明
+
+无
 
 ### 返回值示例
 
@@ -45,7 +44,7 @@ GET
 ### 返回值解析
 
 | 参数                   | 类型    | 说明                         |
-|------------------------|---------|----------------------------|
+|------------------------|---------|------------------------------|
 | success                | Boolean | 此次请求是否成功             |
 | msg                    | String  | 返回的信息                   |
 | code                   | Integer | 服务器返回的请求状态码       |
@@ -56,14 +55,17 @@ GET
 | data.ledger_hash       | String  | 账本 hash                    |
 | data.ledger_index      | Integer | 区块高度                     |
 | data.ledger_time       | Integer | 账本关闭时间                 |
+| data.load_base         | Integer | load_base                    |
+| data.load_factor       | Integer | load_factor                  |
 | data.pubkey_node       | String  | 节点公钥                     |
+| data.random            | String  | random                       |
 | data.reserve_base      | Integer | 账号保留值                   |
 | data.reserve_inc       | Integer | 用户每次挂单或信任冻结数量   |
 | data.server_status     | String  | 服务器状态                   |
 | data.validated_ledgers | String  | 账本区间                     |
 
 
-## 请求底层服务器信息
+## 请求服务器底层信息
 
 ### 类型 
 
@@ -73,14 +75,15 @@ GET
 
 创建连接获取底层服务器信息
 
-### 参数说明
-
-无
-
 ### 请求地址
 ```
 {{host}}/server/node
 ```
+
+### 参数说明
+
+无
+
 ### 返回值示例
 
 ```JSON
@@ -100,13 +103,15 @@ GET
 ```
 ### 返回值解析
 
-| 参数         | 类型    | 说明                   |
-|--------------|---------|----------------------|
-| success      | Boolean | 此次请求是否成功       |
-| msg          | String  | 返回的信息             |
-| code         | Integer | 服务器返回的请求状态码 |
-| data         | Object  | SWTC-LIB 返回的数据    |
-| data.version | String  | 服务器部署项目版本     |
-| data.ledgers | String  | 账本区间               |
-| data.node    | String  | 节点公钥               |
-| data.state   | String  | 服务器状态             |
+| 参数                  | 类型    | 说明                   |
+|-----------------------|---------|----------------------|
+| success               | Boolean | 此次请求是否成功       |
+| msg                   | String  | 返回的信息             |
+| code                  | Integer | 服务器返回的请求状态码 |
+| data                  | Object  | SWTC-LIB 返回的数据    |
+| data.complete_ledgers | String  | 账本区间               |
+| data.ledgers          | String  | 最新账本hash           |
+| data.public_key       | String  | 节点公钥               |
+| data.state            | String  | 服务器状态             |
+| data.peers            | Integer | 节点连接数(不包含自己) |
+| data.version          | String  | 服务器部署项目版本     |
